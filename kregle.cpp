@@ -23,9 +23,9 @@ unsigned int check (unsigned int xthrow);
 	 cin>> players;
 	 players = check (players);
 
-	 int p=1;
+	 int p=0;
 	 string player;
-	 while (p<players+1)
+	 while (p<players)
 
 			{ cout<< "podaj imię gracza numer "<< p<< "\t";
 			
@@ -34,8 +34,8 @@ unsigned int check (unsigned int xthrow);
 			p++;
 			}
 	 cout<< "\n \n oto lista graczy \n \n";
-		p =1;
-		while( p<players+1)
+		p =0;
+		while( p<players)
 			{
 				cout<< name[p] <<"\t"; 
 			p++;
@@ -51,7 +51,7 @@ unsigned int check (unsigned int xthrow);
 	 for (int i = 1; i < 11; i++)
 	 {
 			cout<<"\n RUNDA "<<i<<endl;
-				for (p=1; p<players+1; p++)
+				for (p=0; p<players; p++)
 				{
 					
 
@@ -126,13 +126,15 @@ unsigned int check (unsigned int xthrow);
 					}
 				
 
+
+
 				}
 
 
 				cout<<"\n \n \n PODSUMOWANIE \n\n";
 				vector <int>::iterator see;
-				p=1;
-				for (see = points.begin()+1; see !=points.end(); ++see) 
+				p=0;
+				for (see = points.begin(); see !=points.end(); ++see) 
 				{
 					
 					cout<< name[p]<< "\t"<<*see<<endl;
