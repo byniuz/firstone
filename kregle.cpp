@@ -7,6 +7,7 @@
 using namespace std;
 
 unsigned int check(unsigned int xthrow);
+unsigned int take_players (unsigned int xplayers);
 
 int main()
 
@@ -14,10 +15,8 @@ int main()
   map<int, string> name;
   unsigned int throw1, throw2, spare, strike, oframe;
 
-  cout << " podaj liczbe graczy - MAX 10 \t";
-  unsigned int players;
-  cin >> players;
-  players = check(players);
+  unsigned int players=0;
+  players = take_players (players);
 
   int p = 0;
   string player;
@@ -54,12 +53,12 @@ int main()
       if (throw1 == 10) {
         cout << "STRIKE zdobyłeś \t" << throw1 << "\t punktów";
 
-        points[p] = points[p] + throw1;
+        points[p] += throw1;
         if (i > 1)  // naliczanie premii po pierwszym rzucie
         {
           if ((bonus[p] == 2) || (bonus[p] == 1))
 
-            points[p] = points[p] + throw1;
+            points[p] += throw1;
 
         }  // koniec naliczania premii po pierwszym rzucie
 
@@ -73,17 +72,17 @@ int main()
         {
           if (bonus[p] == 2)
             if (throw1 == 10)
-              points[p] = points[p] + throw1 * 2;
+              points[p] += throw1 * 2;
             else
-              points[p] = points[p] + throw1 + throw2;
+              points[p] += throw1 + throw2;
           else if (bonus[p] == 1)
-            points[p] = points[p] + throw1;
+            points[p] += throw1;
         }  // koniec naliczania premii po drugim rzucie
 
         if (throw1 + throw2 == 10) {
           spare = throw1 + throw2;
           cout << "SPARE zdobyłeś \t" << spare << "\t punktów ";
-          points[p] = points[p] + spare;
+          points[p] += spare;
           bonus[p] = 1;
         } else {
           oframe = throw1 + throw2;
@@ -93,7 +92,7 @@ int main()
             goto begin;
           } else {
             cout << "OPEN FRAME zdobyłeś \t" << oframe << "\t punktów ";
-            points[p] = points[p] + oframe;
+            points[p] += oframe;
             bonus[p] = 0;
           }
         }
@@ -157,3 +156,21 @@ unsigned int check(unsigned int xthrow)
   }
   return xthrow;
 }
+
+unsigned int take_players (unsigned int xplayers)
+	 {
+		 {
+		  cout<< " podaj liczbe graczy - MAX 10 \t";
+	 
+	 cin>> xplayers;
+	  xplayers = check (xplayers);
+	 while (xplayers == 0)
+		 {
+			 cout<< "\n chyba nie trudno się domyslic, ze 0 nie gra w kregle, podaj liczbe wieksza od 0 i mniejsza od 10 POWODZENIA \n";
+			 cin>>xplayers;
+		}
+	 
+	 xplayers = check (xplayers);
+		 }
+	 return xplayers;
+	 }
