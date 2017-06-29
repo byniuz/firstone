@@ -7,39 +7,28 @@
 using namespace std;
 
 unsigned int check(unsigned int xthrow);
-unsigned int take_players (unsigned int xplayers);
+unsigned int take_players ();
+map <int, string> TakeName ();
+void WriteName ();
 
+const unsigned int players=take_players();
+  map<int, string> name;
+  
 int main()
 
 {
-  map<int, string> name;
+
   unsigned int throw1, throw2, spare, strike, oframe;
 
-  unsigned int players=0;
-  players = take_players (players);
-
   int p = 0;
-  string player;
-  while (p < players)
-
-  {
-    cout << "podaj imię gracza numer " << p << "\t";
-
-    cin >> player;
-    name[p] = player;
-    p++;
-  }
-  cout << "\n \n oto lista graczy \n \n";
-  p = 0;
-  while (p < players) {
-    cout << name[p] << "\t";
-    p++;
-  }
+  name = TakeName();
+  WriteName();
+  
 
   cout << "\n \n PROGRAM ZLICZA PUNKTACJE GRY KREGLE \n";
 
-  vector<int> points(p, 0);
-  vector<int> bonus(p, 0);
+  vector<int> points(players, 0);
+  vector<int> bonus(players, 0);
 
   for (int i = 1; i < 11; i++) {
     cout << "\n RUNDA " << i << endl;
@@ -157,20 +146,51 @@ unsigned int check(unsigned int xthrow)
   return xthrow;
 }
 
-unsigned int take_players (unsigned int xplayers)
-	 {
-		 {
-		  cout<< " podaj liczbe graczy - MAX 10 \t";
-	 
-	 cin>> xplayers;
-	  xplayers = check (xplayers);
+unsigned int take_players ()
+ {
+		 
+  cout<< " podaj liczbe graczy - MAX 10 \t";
+  unsigned int xplayers;
+  cin>> xplayers;
+  xplayers = check (xplayers);
 	 while (xplayers == 0)
-		 {
-			 cout<< "\n chyba nie trudno się domyslic, ze 0 nie gra w kregle, podaj liczbe wieksza od 0 i mniejsza od 10 POWODZENIA \n";
-			 cin>>xplayers;
-		}
-	 
+	 {
+	 cout<< "\n chyba nie trudno się domyslic, ze 0 nie gra w kregle, podaj liczbe wieksza od 0 i mniejsza od 10 POWODZENIA \n";
+	 cin>>xplayers;
+	}
 	 xplayers = check (xplayers);
-		 }
+	
 	 return xplayers;
 	 }
+
+
+map <int, string> TakeName ()
+{
+	int p=0;
+	string player;
+	 map<int, string> name;
+  while (p < players)
+
+  {
+    cout << "podaj imię gracza numer " << p << "\t";
+
+    cin >> player;
+    name[p] = player;
+    p++;
+  }
+return name;
+}
+
+
+void WriteName ()
+
+{
+	  cout << "\n \n oto lista graczy \n \n";
+  int p = 0;
+  while (p < players) 
+  {
+    cout << name[p] << "\n";
+    p++;
+  }
+
+}
