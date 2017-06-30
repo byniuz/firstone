@@ -10,26 +10,28 @@ unsigned int check(unsigned int xthrow);
 unsigned int take_players ();
 map <int, string> TakeName ();
 void WriteName ();
+unsigned int CheckBonus ();
 
 const unsigned int players=take_players();
   map<int, string> name;
-  
+  vector<int> points(players, 0);
+  vector<int> bonus(players, 0);
+
+    int p = 0;
+	int i = 0;
+	unsigned int throw1, throw2, spare, strike, oframe;
+
 int main()
 
 {
 
-  unsigned int throw1, throw2, spare, strike, oframe;
-
-  int p = 0;
   name = TakeName();
   WriteName();
   
 
   cout << "\n \n PROGRAM ZLICZA PUNKTACJE GRY KREGLE \n";
 
-  vector<int> points(players, 0);
-  vector<int> bonus(players, 0);
-
+  
   for (int i = 1; i < 11; i++) {
     cout << "\n RUNDA " << i << endl;
     for (p = 0; p < players; p++) {
@@ -43,30 +45,15 @@ int main()
         cout << "STRIKE zdobyłeś \t" << throw1 << "\t punktów";
 
         points[p] += throw1;
-        if (i > 1)  // naliczanie premii po pierwszym rzucie
-        {
-          if ((bonus[p] == 2) || (bonus[p] == 1))
-
-            points[p] += throw1;
-
-        }  // koniec naliczania premii po pierwszym rzucie
-
+		  if (i > 1)
+		points[p] = CheckBonus ();
         bonus[p] = 2;
       } else {
         cout << "podaj liczbe wyrzuconych kregli w drugim rzucie \t";
         cin >> throw2;
         throw2 = check(throw2);
-
-        if (i > 1)  // naliczanie premii po drugim  rzucie
-        {
-          if (bonus[p] == 2)
-            if (throw1 == 10)
-              points[p] += throw1 * 2;
-            else
-              points[p] += throw1 + throw2;
-          else if (bonus[p] == 1)
-            points[p] += throw1;
-        }  // koniec naliczania premii po drugim rzucie
+		  if (i > 1)
+		points[p] = CheckBonus ();
 
         if (throw1 + throw2 == 10) {
           spare = throw1 + throw2;
@@ -147,22 +134,22 @@ unsigned int check(unsigned int xthrow)
 }
 
 unsigned int take_players ()
- {
-		 
-  cout<< " podaj liczbe graczy - MAX 10 \t";
-  unsigned int xplayers;
-  cin>> xplayers;
-  xplayers = check (xplayers);
-	 while (xplayers == 0)
 	 {
-	 cout<< "\n chyba nie trudno się domyslic, ze 0 nie gra w kregle, podaj liczbe wieksza od 0 i mniejsza od 10 POWODZENIA \n";
-	 cin>>xplayers;
-	}
+		 
+		  cout<< " podaj liczbe graczy - MAX 10 \t";
+	 unsigned int xplayers;
+	 cin>> xplayers;
+	  xplayers = check (xplayers);
+	 while (xplayers == 0)
+		 {
+			 cout<< "\n chyba nie trudno się domyslic, ze 0 nie gra w kregle, podaj liczbe wieksza od 0 i mniejsza od 10 POWODZENIA \n";
+			 cin>>xplayers;
+		}
+	 
 	 xplayers = check (xplayers);
-	
+		 
 	 return xplayers;
 	 }
-
 
 map <int, string> TakeName ()
 {
@@ -181,7 +168,6 @@ map <int, string> TakeName ()
 return name;
 }
 
-
 void WriteName ()
 
 {
@@ -193,4 +179,19 @@ void WriteName ()
     p++;
   }
 
+}
+
+unsigned int CheckBonus ()
+{
+	       // naliczanie premii 
+        {
+          if (bonus[p] == 2)
+            if (throw1 == 10)
+              points[p] += throw1 ;
+            else
+              points[p] += throw1 + throw2;
+          else if (bonus[p] == 1)
+            points[p] += throw1;
+        }  // koniec naliczania 
+		   return points[p];
 }
