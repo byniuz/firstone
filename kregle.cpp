@@ -3,7 +3,6 @@
 #include <map>
 #include <string>
 #include <vector>
-
 using namespace std;
 
 unsigned int check(unsigned int xthrow);
@@ -79,7 +78,7 @@ int main()
         }
       }
     }
-
+  }
     cout << "\n \n \n PODSUMOWANIE \n\n";
     Summary();
 
@@ -91,7 +90,7 @@ int main()
     cin.get();
     cin.get();
     return 0;
-  }
+  
 }
 
 unsigned int check(unsigned int xthrow) {
