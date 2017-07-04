@@ -1,4 +1,4 @@
-#include <stdafx.h>
+//#include <stdafx.h>
 #include <iostream>
 #include <map>
 #include <string>
@@ -22,8 +22,16 @@ vector<int> bonus(players, 0);
 int i = 0;
 unsigned int throw1, throw2, spare, strike, oframe;
 
-int main()
+void Summary() {
+  vector<int>::iterator see;
+  size_t p = 0;
+  for (see = points.begin(); see != points.end(); ++see) {
+    cout << name[p] << "\t" << *see << endl;
+    p++;
+  }
+}
 
+int main()
 {
   size_t p = 0;
   name = TakeName();
@@ -73,63 +81,20 @@ int main()
     }
 
     cout << "\n \n \n PODSUMOWANIE \n\n";
-    vector<int>::iterator see;
-    p = 0;
-    for (see = points.begin(); see != points.end(); ++see) {
-      cout << name[p] << "\t" << *see << endl;
-      p++;
-    }
+    Summary();
 
-    /*				for (see = bonus.begin()+1; see !=bonus.end();
-       ++see)
-                           {
+    LastBonusThrows();
 
-                                   cout<< name[p]<< "\t"<<*see<<endl;
-                                   p++;
-                           }   */
+    cout << "\n \n \n PODSUMOWANIE FINAL\n\n";
+    Summary();
+
+    cin.get();
+    cin.get();
+    return 0;
   }
-
-  /*	 if (1<p<players)
-                                                          {
-                                                          if (bonus[p]==2)
-                                                                  if
-     (throw1==10)
-                                                                  points[p]=points[p]+throw1*2;
-                                                                  else
-                                                                          points[p]=points[p]+throw1
-     +throw2;
-                                                          else
-                                                                  if(bonus[p]==1)
-                                                                  points[p]=points[p]+throw1;
-                                                                  else
-                                                                  points[p]=points[p];
-                                                          }
-                                          else
-                                                  points[p]=points[p];
-
-
-           */
-
-  //////
-
-  void LastBonusThrows();
-
-  cout << "\n \n \n PODSUMOWANIE FINAL\n\n";
-  vector<int>::iterator see;
-  p = 0;
-  for (see = points.begin(); see != points.end(); ++see) {
-    cout << name[p] << "\t" << *see << endl;
-    p++;
-  }
-
-  cin.get();
-  cin.get();
-  return 0;
 }
 
-unsigned int check(unsigned int xthrow)
-
-{
+unsigned int check(unsigned int xthrow) {
   while (xthrow > 10)
 
   {
