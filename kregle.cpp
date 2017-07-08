@@ -17,7 +17,6 @@ map<int, string> name;
 vector<int> points(players, 0);
 vector<int> bonus(players, 0);
 
-int i = 0;
 unsigned int throw1, throw2, spare, strike, oframe;
 
 bool CheckNumber(unsigned int TestNumber) {
@@ -26,8 +25,8 @@ bool CheckNumber(unsigned int TestNumber) {
 
 	return check;
 }
-unsigned int GetOneThrowPoints(unsigned int xthrow) {
-
+unsigned int GetOneThrowPoints() {
+	unsigned int xthrow;
 	cin >> xthrow;
 	while (!CheckNumber(xthrow))
 	{
@@ -40,12 +39,11 @@ unsigned int GetOneThrowPoints(unsigned int xthrow) {
 
 
 void Summary() {
-	vector<int>::iterator see;
+	
 	size_t p = 0;
-	for (see = points.begin(); see != points.end(); ++see) {
-		cout << name[p] << "\t" << *see << endl;
-		p++;
-	}
+	for (p=0; p<players; p++) {
+		cout << name[p] << "\t" << points[p]<< endl;
+			}
 }
 
 int main()
@@ -64,7 +62,7 @@ int main()
 		begin:
 			cout << "\n \n podaj liczbę wyrzuconych kręgli \t";
 			
-			throw1 = GetOneThrowPoints(throw1);
+			throw1 = GetOneThrowPoints();
 
 			if (throw1 == 10) {
 				cout << "STRIKE zdobyłeś \t" << throw1 << "\t punktów";
@@ -76,7 +74,7 @@ int main()
 			else {
 				cout << "podaj liczbe wyrzuconych kregli w drugim rzucie \t";
 				
-				throw2 = GetOneThrowPoints(throw2);
+				throw2 = GetOneThrowPoints();
 				if (i > 1) points[p] = CheckBonus(p);
 
 				if (throw1 + throw2 == 10) {
@@ -120,11 +118,11 @@ unsigned int take_players(unsigned int xplayers) {
 	cout << " podaj liczbe graczy - MAX 10 \t";
 	
 	
-	xplayers = GetOneThrowPoints (xplayers);
+	xplayers = GetOneThrowPoints();
 	while (xplayers == 0) {
 		cout << "\n chyba nie trudno się domyslic, ze 0 nie gra w kregle, podaj "
 			"liczbe wieksza od 0 i mniejsza od 10 POWODZENIA \n";
-		xplayers = GetOneThrowPoints (xplayers);
+		xplayers = GetOneThrowPoints();
 	}
 
 	
@@ -178,21 +176,21 @@ void LastBonusThrows() {
 		if (bonus[p] == 2) {
 			cout << "\n"<<name[p]<< "\t Masz dodatkowe dwa rzuty \n podaj ile wyrzuciles w pierwszym "
 				"rzucie: \t";
-			throw1 = GetOneThrowPoints(throw1);
+			throw1 = GetOneThrowPoints();
 			if (throw1 == 10) {
 				cout << "\n STRIKE";
 				points[p] += throw1 * 2;
 			}
 			else {
 				cout << "\n podaj ile wyrzuciłeś w drugim rzucie: \t";
-				throw2 = GetOneThrowPoints(throw2);
+				throw2 = GetOneThrowPoints();
 				points[p] += throw1 + throw2;
 			}
 		}
 		else if (bonus[p] == 1) {
 			cout << "\n"<<name[p]<< "\t Masz dodatkowy rzut \n podaj ile wyrzuciles w pierwszym "
 				"rzucie: \t";
-			throw1 = GetOneThrowPoints(throw1);
+			throw1 = GetOneThrowPoints();
 			points[p] += throw1;
 		}
 	}
