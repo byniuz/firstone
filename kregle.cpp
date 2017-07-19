@@ -8,12 +8,15 @@ using namespace std;
 class Bowles
 {
 public:
+  Bowles() : players(take_players()), points(players, 0), bonus(players, 0) {}
 
-	bool CheckNumber(const unsigned int TestNumber) {
-
+  bool CheckNumber(const unsigned int TestNumber) const {
+    // modyfikator const przy funkcji mowi ze funkcja jest stala, czyli nie zmieni zadnego pola w klasie
+    // i korzysta tylko ze stałych funkcji
 		return (TestNumber <= 10);
 	}
-	unsigned int GetOneNumberAndCheckIt() {
+
+  unsigned int GetOneNumberAndCheckIt() const {
 		unsigned int xthrow;
 		cin >> xthrow;
 		while (!CheckNumber(xthrow))
@@ -23,67 +26,50 @@ public:
 			cin >> xthrow;
 		}
 		return xthrow;
-	}
-	const unsigned int players;
-	vector<int> points;
-	vector<int> bonus;
-	Bowles() : players(take_players()), points(players, 0), bonus(players, 0) {}
+  }
 
 
 	unsigned int take_players() {
 		cout << " podaj liczbe graczy - MAX 10 \t";
 
-		unsigned int xplayers;
-		xplayers = GetOneNumberAndCheckIt();
-		while (xplayers == 0) {
-			cout << "\n chyba nie trudno się domyslic, ze 0 nie gra w kregle, podaj "
+    unsigned int xplayers = GetOneNumberAndCheckIt();
+    while (xplayers == 0) {
+      cout << "\n chyba nie trudno się domyslic, ze 0 nie gra w kregle, podaj "
 				"liczbe wieksza od 0 i mniejsza od 10 POWODZENIA \n";
 			xplayers = GetOneNumberAndCheckIt();
 		}
 
 
-		return xplayers;
-	}
+    return xplayers;
+  }
 
-	map<int, string> name;
-	map<int, string> TakeName() {
-		size_t p = 0;
-		string player;
-		while (p < players)
+  void TakeName() {
+    size_t p = 0;
+    string player;
+    while (p < players)
 
-		{
-			p++;
-			cout << "podaj imię gracza numer " << p << "\t";
-			p--;
-			cin >> player;
-			name[p] = player;
-			p++;
-		}
-		return name;
-	}
+    {
+      cout << "podaj imię gracza numer " << p + 1 << "\t";
+      cin >> player;
+      name[p++] = player;
+    }
+  }
 
-	void WriteName()
-
+  void WriteName() const
 	{
 		cout << "\n \n oto lista graczy \n \n";
-		size_t p = 0;
-		while (p < players) {
-			cout << name[p] << "\n";
-			p++;
-		}
+    for (auto& oneName : name)
+      std::cout << oneName.second << std::endl;
 	}
 
 
-	void Summary() {
-
-		size_t p = 0;
-		for (p = 0; p<players; p++) {
+  void Summary() {
+    for (size_t p = 0; p<players; p++) {
 			cout << name[p] << "\t" << points[p] << endl;
 		}
 	}
 
-	unsigned int throw1, throw2;
-	unsigned int CheckBonus(size_t bonusIndex) {
+  unsigned int CheckBonus(const size_t bonusIndex) {
 		//  bonus counting - start
 
 		if (bonus[bonusIndex] == 2) {
@@ -124,6 +110,12 @@ public:
 			}
 		}
 	}
+
+  unsigned int throw1, throw2;
+  const unsigned int players;
+  vector<unsigned int> points;
+  vector<unsigned int> bonus;
+  map<unsigned int, string> name;
 
 };
 
@@ -172,7 +164,7 @@ int main()
 					if (oframe >= 10) {
 						cout << "suma punktow z dwoch rzutow nie moze byc wieksza niz 10, "
 							"zacznij od nowa";
-					goto begin;
+          goto begin; //wez to usun, blagam ;)
 					}
 					else {
 						cout << "OPEN FRAME zdobyłeś \t" << oframe << "\t punktów ";
