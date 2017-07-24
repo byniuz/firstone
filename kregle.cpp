@@ -136,9 +136,10 @@ public:
 			cout << "podaj liczbe wyrzuconych kregli w drugim rzucie \t";
 
 			throw2 = GetOneNumberAndCheckIt();
-			points[p] = CheckBonus(p);
+			//points[p] = CheckBonus(p);
 
 			if (throw1 + throw2 == 10) {
+				points[p] = CheckBonus(p);
 				spare = throw1 + throw2;
 				cout << "SPARE zdobyłeś \t" << spare << "\t punktów ";
 				points[p] += spare;
@@ -147,6 +148,7 @@ public:
 			else {
 				oframe = throw1 + throw2;
 				if (oframe <= 10) {
+					points[p] = CheckBonus(p);
 					cout << "OPEN FRAME zdobyłeś \t" << oframe << "\t punktów ";
 					points[p] += oframe;
 					bonus[p] = 0;
